@@ -37,7 +37,7 @@ class LogisticModel(models.BaseModel):
 
 
     net = slim.conv2d(model_input, 128, [2, 2], scope='conv3_1')
-    net = slim.conv2d(net, 128, [3, 3], scope='conv3_1')
+    net = slim.conv2d(net, 128, [3, 3], scope='conv3_2')
     net = slim.max_pool2d(net, [2,2], scope='pool1')
 
     net = slim.flatten(net)
