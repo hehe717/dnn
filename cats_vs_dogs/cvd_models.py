@@ -38,17 +38,19 @@ class LogisticModel(models.BaseModel):
     print "model_input"
     print model_input
 
-    net = slim.conv2d(model_input, 5, [2, 2], activation_fn=tf.nn.relu)
+    net = slim.conv2d(model_input, 32, [2, 2], activation_fn=tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool2')
-    net = slim.dropout(net, 0.1)
+    net = slim.dropout(net, 0.2)
 
-    net = slim.conv2d(net, 5, [3, 3], activation_fn=tf.nn.relu)
+    net = slim.conv2d(net, 32, [3, 3], activation_fn=tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool3')
     net = slim.dropout(net, 0.1)
 
-    net = slim.conv2d(net, 5, [4, 4], activation_fn=tf.nn.relu)
+    net = slim.conv2d(net, 32, [4, 4], activation_fn=tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool4')
-    net = slim.dropout(net, 0.1)
+    net = slim.dropout(net, 0.2)
+
+    net = slim.fully_connected(net, 256, activation_fn=tf.nn.relu, weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     net = slim.flatten(net)
     output = slim.fully_connected(
