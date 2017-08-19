@@ -47,7 +47,7 @@ class LogisticModel(models.BaseModel):
     net = slim.max_pool2d(net, [2, 2], scope='pool3')
     net = slim.dropout(net, 0.2)
 
-    net = slim.conv2d(net+net1, 3, [3, 3], activation_fn=tf.nn.relu)
+    net = slim.conv2d(net, 3, [3, 3], activation_fn=tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool4')
     net = slim.dropout(net, 0.2)
 
