@@ -45,7 +45,8 @@ class LogisticModel(models.BaseModel):
     net = slim.conv2d(net, 3, [4, 4], scope='conv3_3')
     net = slim.dropout(net, 0.5)
     net = slim.max_pool2d(net, [2, 2], scope='pool2')
-    net = slim.fully_connected(net, 128, activation_fn=tf.nn.relu,
+
+    net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu,
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
     net = slim.flatten(net)
     output = slim.fully_connected(
