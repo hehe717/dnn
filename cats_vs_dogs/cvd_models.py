@@ -38,8 +38,12 @@ class LogisticModel(models.BaseModel):
     print "model_input"
     print model_input
     net = slim.conv2d(model_input, 3, [2, 2], scope='conv3_1')
-    print "net"
-    print net
+    net = slim.dropout(net, 0.5)
+    net = slim.conv2d(net, 3, [3, 3], scope='conv3_2')
+    net = slim.dropout(net, 0.5)
+    net = slim.conv2d(net, 3, [4, 4], scope='conv3_3')
+    net = slim.dropout(net, 0.5)
+
 
     net = slim.flatten(net)
     output = slim.fully_connected(
