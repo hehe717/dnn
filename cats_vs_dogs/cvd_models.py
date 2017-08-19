@@ -38,17 +38,7 @@ class LogisticModel(models.BaseModel):
     print model_input
     net = slim.conv2d(model_input, 128, [2, 2], scope='conv3_1')
 
-    print "net1"
-    print net
-    net = slim.conv2d(net, 128, [3, 3], scope='conv3_2')
-
-    print "net2"
-    print net
-    net = slim.max_pool2d(net, [2,2], scope='pool1')
-
-    print "net3"
-    print net
-    #net = slim.flatten(net)
+    net = slim.flatten(net)
     output = slim.fully_connected(
         net, num_classes - 1, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
