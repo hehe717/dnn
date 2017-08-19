@@ -84,6 +84,12 @@ gcloud ml-engine local train \
 --train_data_pattern='gs://kmlc_test_train_bucket/cats_vs_dogs/tfrecords/train/*' \
 --train_dir=/tmp/kmlc_cvd_train --model=LogisticModel --start_new_model
 ```
+gcloud ml-engine local train \
+--package-path=cats_vs_dogs --module-name=cats_vs_dogs.train -- \
+--train_data_pattern='./traindata/*' \
+--train_dir=/tmp/kmlc_cvd_train --model=LogisticModel --start_new_model
+
+
 
 작업 진척에 도움을 받거나 오프라인에서 작업하기 위해서 데이터를 로컬에 받을 수도 있습니다. 다음 커맨드는 4096개의 훈련 데이터 중 10개를 현 디렉토리로 다운받는 명령어입니다.
 

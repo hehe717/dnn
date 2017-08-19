@@ -20,8 +20,6 @@ import tensorflow as tf
 import tensorflow.slim as slim
 import utils
 
-import tensorflow.contrib.slim as slim
-
 class LogisticModel(models.BaseModel):
   """Logistic model with L2 regularization."""
 
@@ -41,7 +39,6 @@ class LogisticModel(models.BaseModel):
     net = slim.conv2d(model_input, 128, [2, 2], scope='conv3_1')
     net = slim.conv2d(net, 128, [3, 3], scope='conv3_1')
     net = slim.max_pool2d(net, [2,2], scope='pool1')
-
 
     net = slim.flatten(net)
     output = slim.fully_connected(
