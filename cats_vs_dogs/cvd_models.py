@@ -17,7 +17,7 @@ import math
 
 import models
 import tensorflow as tf
-import tensorflow.slim as slim
+import tensorflow.contrib.slim as slim
 import utils
 
 class LogisticModel(models.BaseModel):
