@@ -37,7 +37,7 @@ class LogisticModel(models.BaseModel):
 
     print "model_input"
     print model_input
-    net = slim.conv2d(model_input, 128, [2, 2], scope='conv3_1')
+    net = slim.conv2d(model_input, 3, [2, 2], scope='conv3_1')
     print "net"
     print net
 
