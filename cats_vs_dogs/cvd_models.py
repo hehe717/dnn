@@ -44,7 +44,7 @@ class LogisticModel(models.BaseModel):
     output = slim.fully_connected(
         net, num_classes - 1, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
-    return {"pre dictions": output}
+    return {"predictions": output}
 
 class MoeModel(models.BaseModel):
   """A softmax over a mixture of logistic models (with L2 regularization)."""
