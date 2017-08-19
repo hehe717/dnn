@@ -38,11 +38,11 @@ class LogisticModel(models.BaseModel):
     print "model_input"
     print model_input
 
-    net = slim.conv2d(model_input, 3, [2, 2], tf.nn.relu)
+    net = slim.conv2d(model_input, 3, [2, 2], [1,1], tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool2')
     net = slim.dropout(net, 0.5)
 
-    net = slim.conv2d(net, 3, [3, 3], tf.nn.relu)
+    net = slim.conv2d(net, 3, [3, 3], [1,1], tf.nn.relu)
     net = slim.max_pool2d(net, [2, 2], scope='pool3')
     net = slim.dropout(net, 0.5)
 
