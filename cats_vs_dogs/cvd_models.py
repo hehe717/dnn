@@ -35,14 +35,16 @@ class LogisticModel(models.BaseModel):
       model in the 'predictions' key. The dimensions of the tensor are
       batch_size x num_classes."""
 
+    print "model_input"
     print model_input
     net = slim.conv2d(model_input, 128, [2, 2], scope='conv3_1')
+    print "net"
     print net
     net = slim.flatten(model_input)
     output = slim.fully_connected(
         net, num_classes - 1, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
-    return {"predictions": output}
+    return {"pre dictions": output}
 
 class MoeModel(models.BaseModel):
   """A softmax over a mixture of logistic models (with L2 regularization)."""
