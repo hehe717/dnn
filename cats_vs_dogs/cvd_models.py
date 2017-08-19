@@ -54,6 +54,8 @@ class LogisticModel(models.BaseModel):
       net, num_classes - 1, activation_fn=tf.nn.relu,
       weights_regularizer=slim.l2_regularizer(l2_penalty))
 
+    print "output"
+    print output
     return {"predictions": output}
 
 class MoeModel(models.BaseModel):
