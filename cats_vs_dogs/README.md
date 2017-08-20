@@ -239,7 +239,8 @@ python cats_vs_dogs/convert_prediction_from_json_to_csv.py \
 
 ### Accessing Files on Google Cloud
 
-[Google Cloud storage browser](https://console.cloud.google.com/storage/browser)을 통해서 이전에 생성한 storage bucket을 직접 조회할 수 있습니다. 해당 버킷에 저장된 Trained model, CSV 파일 등을 직접 조회할 수 있습니다.
+[Google Cloud storage browser](https://console.cloud.google.com/storage/browser)을 통해서 이전에 생성한 storage bucket을 직접 조회할 수 있습니다.
+ 해당 버킷에 저장된 Trained model, CSV 파일 등을 직접 조회할 수 있습니다.
 
 다른 방법으로는 'gsutil' 명령어를 통해서 파일을 직접 다운로드 받을 수도 있습니다.
 예를 들어 방금 생성한 Prediction CSV를 로컬 머신으로 다운로드 받고자 한다면 다음 명령어를 실행하시면 됩니다:
