@@ -68,7 +68,7 @@ class LogisticModel(models.BaseModel):
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     output = slim.fully_connected(
-        input, num_classes - 1, activation_fn=tf.nn.sigmoid,
+        net, num_classes - 1, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     return {"predictions": output}
