@@ -112,6 +112,7 @@ class CatsVsDogsFeatureReader(BaseReader):
     images = tf.image.convert_image_dtype(images, dtype=tf.float32)
     images = tf.subtract(images, 0.5)
     images = tf.multiply(images, 2.0)
+    print images
 
     def dense_to_one_hot(label_batch, num_classes):
       one_hot = tf.map_fn(lambda x : tf.cast(slim.one_hot_encoding(x, num_classes), tf.int32), label_batch)
