@@ -18,6 +18,7 @@ import math
 import models
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
+from tensorflow.contrib.slim.nets import vgg
 import utils
 
 class LogisticModel(models.BaseModel):
@@ -35,24 +36,30 @@ class LogisticModel(models.BaseModel):
       model in the 'predictions' key. The dimensions of the tensor are
       batch_size x num_classes."""
 
-    print "model_input"
-    print model_input
+    with tf.variable_scope("vgg_16"):
+        with slim.arg_scope(vgg.vgg_arg_scope()):
+            net = slim.repeat(model_input, 2, slim.conv2d, 64, [3, 3], scope='conv1')
+            net = slim.max_pool2d(net, [2, 2], scope='pool1')
+            net = slim.dropout(net, 0.2)
+            net = slim.repeat(net, 2, slim.conv2d, 128, [3, 3], scope='conv2')
+            net = slim.max_pool2d(net, [2, 2], scope='pool2')
+            net = slim.dropout(net, 0.2)
+            net = slim.repeat(net, 3, slim.conv2d, 256, [3, 3], scope='conv3')
+            net = slim.max_pool2d(net, [2, 2], scope='pool3')
+            net = slim.dropout(net, 0.2)
+            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], scope='conv4')
+            net = slim.max_pool2d(net, [2, 2], scope='pool4')
+            net = slim.dropout(net, 0.2)
+            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], scope='conv5')
+            net = slim.max_pool2d(net, [2, 2], scope='pool5')
+            net = slim.dropout(net, 0.2)
 
-    net = slim.conv2d(model_input, 2, [2, 2], activation_fn=tf.nn.relu)
-    net = slim.max_pool2d(net, [2, 2], scope='pool2')
-    net = slim.dropout(net, 0.2)
-
-    net = slim.conv2d(net, 2, [3, 3], activation_fn=tf.nn.relu)
-    net = slim.max_pool2d(net, [2, 2], scope='pool3')
-    net = slim.dropout(net, 0.1)
-
-    net = slim.conv2d(net, 2, [4, 4], activation_fn=tf.nn.relu)
-    net = slim.max_pool2d(net, [2, 2], scope='pool4')
-    net = slim.dropout(net, 0.2)
-
-    net = slim.fully_connected(net, 3, activation_fn=tf.nn.relu, weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     net = slim.flatten(net)
+    net = slim.fully_connected(net, 512, activation_fn=tf.nn.relu,
+                               weights_initializer=tf.contrib.layers.xavier_initializer(),
+                               weights_regularizer=slim.l2_regularizer(l2_penalty))
+
     output = slim.fully_connected(
         net, num_classes - 1, activation_fn=tf.nn.sigmoid,
         weights_regularizer=slim.l2_regularizer(l2_penalty))
