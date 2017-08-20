@@ -183,7 +183,7 @@ def build_graph(reader,
                 learning_rate_decay=0.90,
                 optimizer_class=tf.train.AdamOptimizer,
                 clip_gradient_norm=1.0,
-                regularization_penalty=1,
+                regularization_penalty=0.5,
                 num_readers=1,
                 num_epochs=None):
   """Creates the Tensorflow graph.
