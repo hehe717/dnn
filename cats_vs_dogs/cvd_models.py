@@ -38,26 +38,32 @@ class LogisticModel(models.BaseModel):
 
     with tf.variable_scope("vgg_16"):
         with slim.arg_scope(vgg.vgg_arg_scope()):
-            net = slim.repeat(model_input, 2, slim.conv2d, 64, [3, 3], scope='conv1')
+            net = slim.repeat(model_input, 2, slim.conv2d, 64, [2, 2], scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool1')
-            net = slim.dropout(net, 0.2)
+            net = slim.dropout(net, 0.5)
             net = slim.repeat(net, 2, slim.conv2d, 128, [3, 3], scope='conv2')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
-            net = slim.dropout(net, 0.2)
-            net = slim.repeat(net, 3, slim.conv2d, 256, [3, 3], scope='conv3')
+            net = slim.dropout(net, 0.5)
+            net = slim.repeat(net, 3, slim.conv2d, 256, [4, 4], scope='conv3')
             net = slim.max_pool2d(net, [2, 2], scope='pool3')
-            net = slim.dropout(net, 0.2)
-            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], scope='conv4')
+            net = slim.dropout(net, 0.5)
+            net = slim.repeat(net, 3, slim.conv2d, 512, [5, 5], scope='conv4')
             net = slim.max_pool2d(net, [2, 2], scope='pool4')
-            net = slim.dropout(net, 0.2)
-            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], scope='conv5')
+            net = slim.dropout(net, 0.5)
+            net = slim.repeat(net, 3, slim.conv2d, 512, [6, 6], scope='conv5')
             net = slim.max_pool2d(net, [2, 2], scope='pool5')
-            net = slim.dropout(net, 0.2)
+            net = slim.dropout(net, 0.5)
 
 
     net = slim.flatten(net)
     net = slim.fully_connected(net, 512, activation_fn=tf.nn.relu,
-                               weights_initializer=tf.contrib.layers.xavier_initializer(),
+                               weights_regularizer=slim.l2_regularizer(l2_penalty))
+
+    net = slim.fully_connected(net, 256, activation_fn=tf.nn.relu,
+                               weights_regularizer=slim.l2_regularizer(l2_penalty))
+
+
+    net = slim.fully_connected(net, 64, activation_fn=tf.nn.relu,
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     output = slim.fully_connected(
