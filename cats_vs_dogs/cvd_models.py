@@ -49,18 +49,15 @@ class LogisticModel(models.BaseModel):
             net = slim.repeat(net, 3, slim.conv2d, 512, [6, 6], activation_fn = tf.nn.relu,  scope='conv5')
             net = slim.max_pool2d(net, [2, 2], scope='pool5')
 
-
     net = slim.flatten(net)
     net = slim.fully_connected(net, 512, activation_fn=tf.nn.relu,
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     net = slim.dropout(net, 0.5)
-
     net = slim.fully_connected(net, 256, activation_fn=tf.nn.relu,
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
 
     net = slim.dropout(net, 0.5)
-
     net = slim.fully_connected(net, 64, activation_fn=tf.nn.relu,
                                weights_regularizer=slim.l2_regularizer(l2_penalty))
 

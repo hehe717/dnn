@@ -300,7 +300,8 @@ python inference.py --output_file=/path/to/predictions.csv --input_data_pattern=
 ## Overview of Files
 
 ### Training
-*   `train.py`: 훈련을 위한 전달인자와 과정을 정의합니다. 변경 가능한 전달인자로는 훈련 데이터셋의 위치, 훈련에 사용될 모델, 배치 사이즈, 로스 함수, 학습 레이트 등이 있습니다. 모델에 따라 get_input_data_tensors()를 변경하여 데이터가 셔플되는 과정을 수정하실 수도 있습니다.
+*   `train.py`: 훈련을 위한 전달인자와 과정을 정의합니다. 변경 가능한 전달인자로는 훈련 데이터셋의 위치, 훈련에 사용될 모델, 배치 사이즈, 로스 함수, 학습 레이트 등이 있습니다.
+모델에 따라 get_input_data_tensors()를 변경하여 데이터가 셔플되는 과정을 수정하실 수도 있습니다.
 *   `losses.py`: 로스 함수를 정의합니다. losses.py에 정의된 어떤 로스 함수도 train.py에서 사용하실 수 있습니다.
 *   `models.py`: 모델을 정의하기 위한 Base class를 포함하고 있습니다.
 *   `cvd_models.py`: 인풋에서 관찰해야 하는 특성들을 입력으로 받을 수 있는 모델에 대한 정의가 있습니다. 여러분은 여러분만의 모델 또한 이 곳에 정의하셔야 합니다. train.py를 호출할 떄 인자로 --model=YourModelName 을 전달하여 여러분의 모델을 부를 수 있습니다.
